@@ -11,7 +11,7 @@ const entryUpdate = require('./controllers/entryUpdate')
 
 const server = express()
 server.use(bodyParser.json())
-server.use(cors())
+//server.use(cors())
 
 const dbaseSql = knex({
     client: 'pg',
