@@ -11,11 +11,11 @@ const entryUpdate = require('./controllers/entryUpdate')
 
 const server = express()
 server.use(bodyParser.json())
-server.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://recognizing-face.herokuapp.com/");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+// server.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "https://recognizing-face.herokuapp.com/");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
 //server.use(cors())
 
 const dbaseSql = knex({
