@@ -16,7 +16,7 @@ server.use(bodyParser.json())
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
-//server.use(cors())
+server.use(cors())
 
 const dbaseSql = knex({
     client: 'pg',
