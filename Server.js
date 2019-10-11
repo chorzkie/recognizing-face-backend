@@ -9,6 +9,7 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const entryUpdate = require('./controllers/entryUpdate')
 
+
 const app = express()
 app.use(bodyParser.json())
 // app.use(function(req, res, next) {
@@ -21,8 +22,10 @@ app.use(cors())
 const dbaseSql = knex({
     client: 'pg',
     connection: {
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
+        host: '127.0.0.1',
+        user: 'ari',
+        password: 'ari123',
+        database: 'face_recognition'
     }
 })
 
@@ -39,6 +42,7 @@ app.post('/imageurl', (req, res) => { entryUpdate.clarifaiApiCall(req, res) })
 app.put('/image', (req, res) => { entryUpdate.image(req, res, dbaseSql) })
 
 app.get('/getentries/:id', (req, res) => { entryUpdate.getEntries(req, res, dbaseSql) })
+
 
 app.listen(process.env.PORT || 3100, () => {
 //app.listen(3100, () => {
