@@ -9,14 +9,14 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const entryUpdate = require('./controllers/entryUpdate')
 
-const server = express()
-server.use(bodyParser.json())
-// server.use(function(req, res, next) {
+const app = express()
+app.use(bodyParser.json())
+// app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "https://recognizing-face.herokuapp.com/");
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
-server.use(cors())
+app.use(cors())
 
 const dbaseSql = knex({
     client: 'pg',
@@ -26,21 +26,21 @@ const dbaseSql = knex({
     }
 })
 
-server.get('/', (req, res) => { res.send('The get request is received successfully') })
+app.get('/', (req, res) => { res.send('The get request is received successfully') })
 
-server.get('/profile/:id', (req, res) => { profile.profileGet(req, res, bcryptjs, dbaseSql) })
+app.get('/profile/:id', (req, res) => { profile.profileGet(req, res, bcryptjs, dbaseSql) })
 
-server.post('/signin', (req, res) => { signin.handleSignin(req, res, bcryptjs, dbaseSql) })
+app.post('/signin', (req, res) => { signin.handleSignin(req, res, bcryptjs, dbaseSql) })
 
-server.post('/register', (req, res) => { register.handleRegister(req, res, bcryptjs, dbaseSql) })
+app.post('/register', (req, res) => { register.handleRegister(req, res, bcryptjs, dbaseSql) })
 
-server.post('/imageurl', (req, res) => { entryUpdate.clarifaiApiCall(req, res) })
+app.post('/imageurl', (req, res) => { entryUpdate.clarifaiApiCall(req, res) })
 
-server.put('/image', (req, res) => { entryUpdate.image(req, res, dbaseSql) })
+app.put('/image', (req, res) => { entryUpdate.image(req, res, dbaseSql) })
 
-server.get('/getentries/:id', (req, res) => { entryUpdate.getEntries(req, res, dbaseSql) })
+app.get('/getentries/:id', (req, res) => { entryUpdate.getEntries(req, res, dbaseSql) })
 
-server.listen(process.env.PORT || 3100, () => {
-//server.listen(3100, () => {
-    console.log('Server is running on port 3100')
+app.listen(process.env.PORT || 3100, () => {
+//app.listen(3100, () => {
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 })
