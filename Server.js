@@ -46,5 +46,5 @@ app.get('/getentries/:id', (req, res) => { entryUpdate.getEntries(req, res, dbas
 
 app.listen(process.env.PORT || 3100, () => {
 //app.listen(3100, () => {
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log("Express server listening");
 })
