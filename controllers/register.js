@@ -28,7 +28,7 @@ const handleRegister = (req, res, bcryptjs, dbaseSql) => {
             .catch(trx.rollback)
     })
         .catch(err =>
-            res.status(400).json('Unable to register')
+            res.status(400).json('Fail registering')
         )
 }
 
