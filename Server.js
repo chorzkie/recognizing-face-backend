@@ -9,33 +9,35 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const entryUpdate = require('./controllers/entryUpdate')
 
-const server = express()
-server.use(bodyParser.json())
-//server.use(cors())
+const app = express()
+app.use(bodyParser.json())
+app.use(cors())
 
 const dbaseSql = knex({
     client: 'pg',
     connection: {
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
+        host: '127.0.0.1',
+        user: 'ari',
+        password: 'ari123',
+        database: 'face_recognition'
     }
 })
 
-server.get('/', (req, res) => { res.send('The get request is received successfully') })
+app.get('/', (req, res) => { res.send('The get request is received successfully') })
 
-server.get('/profile/:id', (req, res) => { profile.profileGet(req, res, bcryptjs, dbaseSql) })
+app.get('/profile/:id', (req, res) => { profile.profileGet(req, res, bcryptjs, dbaseSql) })
 
-server.post('/signin', (req, res) => { signin.handleSignin(req, res, bcryptjs, dbaseSql) })
+app.post('/signin', (req, res) => { signin.handleSignin(req, res, bcryptjs, dbaseSql) })
 
-server.post('/register', (req, res) => { register.handleRegister(req, res, bcryptjs, dbaseSql) })
+app.post('/register', (req, res) => { register.handleRegister(req, res, bcryptjs, dbaseSql) })
 
-server.post('/imageurl', (req, res) => { entryUpdate.clarifaiApiCall(req, res) })
+app.post('/imageurl', (req, res) => { entryUpdate.clarifaiApiCall(req, res) })
 
-server.put('/image', (req, res) => { entryUpdate.image(req, res, dbaseSql) })
+app.put('/image', (req, res) => { entryUpdate.image(req, res, dbaseSql) })
 
-server.get('/getentries/:id', (req, res) => { entryUpdate.getEntries(req, res, dbaseSql) })
+app.get('/getentries/:id', (req, res) => { entryUpdate.getEntries(req, res, dbaseSql) })
 
-server.listen(process.env.PORT || 3100, () => {
-//server.listen(3100, () => {
-    console.log('Server is running on port 3100')
+//app.listen(process.env.PORT || 3100, () => {
+app.listen(3100, () => {
+    console.log('app is running on port 3100')
 })
