@@ -22,10 +22,8 @@ app.use(cors())
 const dbaseSql = knex({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: 'ari',
-        password: 'ari123',
-        database: 'face_recognition'
+        host: process.env.DATABASE_URL,
+        ssl: true
     }
 })
 
